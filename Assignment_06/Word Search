@@ -1,0 +1,37 @@
+class Solution {
+    public static boolean sol(char[][] board,int i,int j,int m, int n,String word,int idx){
+        if(word.length()==idx) return true;
+        if(i<0 || j<0 || i>=m || j>=n || board[i][j]=='+') return false;
+        char ch=word.charAt(idx);
+        
+        if(ch==board[i][j]){
+            board[i][j]='+';
+            boolean up=sol(board,i-1,j,m,n,word,idx+1);
+            if(up) return true;
+            boolean down=sol(board,i+1,j,m,n,word,idx+1);
+            if(down) return true;
+            boolean left=sol(board,i,j-1,m,n,word,idx+1);
+            if(left) return true;
+            boolean right=sol(board,i,j+1,m,n,word,idx+1);
+            if(right) return true;
+            board[i][j]=ch;
+            return false;
+        }
+        return false;
+    }
+    public boolean exist(char[][] board, String word) {
+       
+        int m=board.length;
+        int n=board[0].length;
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                if(board[i][j]==word.charAt(0)){
+                 
+                 boolean ans=sol(board,i,j,m,n,word,0);
+                 if(ans) return true;
+                } 
+            }
+        }
+        return false;
+    }
+}
