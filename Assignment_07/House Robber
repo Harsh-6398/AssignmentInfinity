@@ -1,0 +1,14 @@
+class Solution {
+    public int helper(int nums[],int brr[],int i){
+        if(i==0) return nums[0];
+        if(i==1) return Math.max(nums[0],nums[1]);
+        if(brr[i]!=-1) return brr[i];
+        brr[i]=Math.max(helper(nums,brr,i-1),helper(nums,brr,i-2)+nums[i]);
+        return brr[i];
+    }
+    public int rob(int[] nums) {
+        int brr[]=new int[nums.length];
+        Arrays.fill(brr,-1);
+        return helper(nums,brr,nums.length-1);
+    }
+}
